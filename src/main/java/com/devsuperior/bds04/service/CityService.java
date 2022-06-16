@@ -1,6 +1,6 @@
 package com.devsuperior.bds04.service;
 
-import com.devsuperior.bds04.dto.CityDTO;
+import com.devsuperior.bds04.dto.CityDto;
 import com.devsuperior.bds04.entities.City;
 import com.devsuperior.bds04.exceptions.DataBaseException;
 import com.devsuperior.bds04.exceptions.ResourceNotFoundException;
@@ -23,14 +23,14 @@ public class CityService {
         this.repository = repository;
     }
 
-    public List<CityDTO> findAll() {
+    public List<CityDto> findAll() {
         List<City> cities = repository.findAll(Sort.by("name"));
-        return cities.stream().map(CityDTO::new).collect(Collectors.toList());
+        return cities.stream().map(CityDto::new).collect(Collectors.toList());
     }
 
 
-    public CityDTO insert(CityDTO dto) {
-        return new CityDTO(repository.save(new City(dto)));
+    public CityDto insert(CityDto dto) {
+        return new CityDto(repository.save(new City(dto)));
     }
 
     public void delete(Long id) {

@@ -1,6 +1,6 @@
 package com.devsuperior.bds04.entities;
 
-import com.devsuperior.bds04.dto.CityDTO;
+import com.devsuperior.bds04.dto.CityDto;
 
 import javax.persistence.*;
 import java.util.ArrayList;
@@ -26,7 +26,7 @@ public class City {
 		this.name = name;
 	}
 
-	public City(CityDTO dto){
+	public City(CityDto dto){
 		name = dto.getName();
 	}
 	public Long getId() {

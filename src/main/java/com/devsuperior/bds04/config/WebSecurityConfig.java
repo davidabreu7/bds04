@@ -15,8 +15,7 @@ import java.util.Arrays;
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     private final Environment env;
-    final
-    BCryptPasswordEncoder passwordEncoder;
+    final BCryptPasswordEncoder passwordEncoder;
 
     public WebSecurityConfig(BCryptPasswordEncoder passwordEncoder, Environment env) {
         this.passwordEncoder = passwordEncoder;
@@ -35,8 +34,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
             http.headers().frameOptions().disable();
         }
 
-        http
-                .authorizeRequests()
+        http.authorizeRequests()
                 .anyRequest()
                 .permitAll()
                 .and().csrf().disable();

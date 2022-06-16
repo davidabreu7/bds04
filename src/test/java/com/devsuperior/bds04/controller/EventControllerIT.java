@@ -17,7 +17,7 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.ResultActions;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.devsuperior.bds04.dto.EventDTO;
+import com.devsuperior.bds04.dto.EventDto;
 import com.devsuperior.bds04.util.TokenUtil;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
@@ -52,7 +52,7 @@ public class EventControllerIT {
     @Test
     public void insertShouldReturn401WhenNoUserLogged() throws Exception {
 
-        EventDTO dto = new EventDTO(null, "Expo XP", LocalDate.of(2021, 5, 18), "https://expoxp.com.br", 1L);
+        EventDto dto = new EventDto(null, "Expo XP", LocalDate.of(2021, 5, 18), "https://expoxp.com.br", 1L);
         String jsonBody = objectMapper.writeValueAsString(dto);
 
         ResultActions result =
@@ -70,7 +70,7 @@ public class EventControllerIT {
         String accessToken = tokenUtil.obtainAccessToken(mockMvc, clientUsername, clientPassword);
         LocalDate nextMonth = LocalDate.now().plusMonths(1L);
 
-        EventDTO dto = new EventDTO(null, "Expo XP", nextMonth, "https://expoxp.com.br", 1L);
+        EventDto dto = new EventDto(null, "Expo XP", nextMonth, "https://expoxp.com.br", 1L);
         String jsonBody = objectMapper.writeValueAsString(dto);
 
         ResultActions result =
@@ -94,7 +94,7 @@ public class EventControllerIT {
         String accessToken = tokenUtil.obtainAccessToken(mockMvc, adminUsername, adminPassword);
         LocalDate nextMonth = LocalDate.now().plusMonths(1L);
 
-        EventDTO dto = new EventDTO(null, "Expo XP", nextMonth, "https://expoxp.com.br", 1L);
+        EventDto dto = new EventDto(null, "Expo XP", nextMonth, "https://expoxp.com.br", 1L);
         String jsonBody = objectMapper.writeValueAsString(dto);
 
         ResultActions result =
@@ -118,7 +118,7 @@ public class EventControllerIT {
         String accessToken = tokenUtil.obtainAccessToken(mockMvc, adminUsername, adminPassword);
         LocalDate nextMonth = LocalDate.now().plusMonths(1L);
 
-        EventDTO dto = new EventDTO(null, "      ", nextMonth, "https://expoxp.com.br", 1L);
+        EventDto dto = new EventDto(null, "      ", nextMonth, "https://expoxp.com.br", 1L);
         String jsonBody = objectMapper.writeValueAsString(dto);
 
         ResultActions result =
@@ -139,7 +139,7 @@ public class EventControllerIT {
         String accessToken = tokenUtil.obtainAccessToken(mockMvc, adminUsername, adminPassword);
         LocalDate pastMonth = LocalDate.now().minusMonths(1L);
 
-        EventDTO dto = new EventDTO(null, "Expo XP", pastMonth, "https://expoxp.com.br", 1L);
+        EventDto dto = new EventDto(null, "Expo XP", pastMonth, "https://expoxp.com.br", 1L);
         String jsonBody = objectMapper.writeValueAsString(dto);
 
         ResultActions result =
@@ -160,7 +160,7 @@ public class EventControllerIT {
         String accessToken = tokenUtil.obtainAccessToken(mockMvc, adminUsername, adminPassword);
         LocalDate nextMonth = LocalDate.now().plusMonths(1L);
 
-        EventDTO dto = new EventDTO(null, "Expo XP", nextMonth, "https://expoxp.com.br", null);
+        EventDto dto = new EventDto(null, "Expo XP", nextMonth, "https://expoxp.com.br", null);
         String jsonBody = objectMapper.writeValueAsString(dto);
 
         ResultActions result =

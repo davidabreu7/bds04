@@ -1,17 +1,18 @@
 package com.devsuperior.bds04.entities;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import com.devsuperior.bds04.dto.RoleDto;
+import org.springframework.security.core.GrantedAuthority;
+
+import javax.persistence.*;
 import java.util.Objects;
 
 @Entity(name = "tb_role")
-public class Role {
+public class Role implements GrantedAuthority {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
+    @Column(unique=true)
     private String authority;
 
     public Role() {
@@ -20,6 +21,10 @@ public class Role {
     public Role(Integer id, String authority) {
         this.id = id;
         this.authority = authority;
+    }
+
+    public Role(RoleDto roleDto) {
+        authority = roleDto.getAuthority();
     }
 
     public Integer getId() {

@@ -4,21 +4,21 @@ import com.devsuperior.bds04.entities.City;
 
 import java.io.Serializable;
 
-public class CityDTO implements Serializable {
+public class CityDto implements Serializable {
 	private static final long serialVersionUID = 1L;
 	
 	private Long id;
 	private String name;
 	
-	public CityDTO() {
+	public CityDto() {
 	}
 
-	public CityDTO(Long id, String name) {
+	public CityDto(Long id, String name) {
 		this.id = id;
 		this.name = name;
 	}
 	
-	public CityDTO(City entity) {
+	public CityDto(City entity) {
 		id = entity.getId();
 		name = entity.getName();
 	}

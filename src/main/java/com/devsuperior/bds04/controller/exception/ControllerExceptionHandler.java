@@ -4,6 +4,7 @@ import com.devsuperior.bds04.exceptions.DataBaseException;
 import com.devsuperior.bds04.exceptions.ResourceNotFoundException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 
@@ -26,6 +27,12 @@ public class ControllerExceptionHandler {
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body(err);
     }
 
+    @ExceptionHandler(UsernameNotFoundException.class)
+    public ResponseEntity<StandardError> usernameNotFound(HttpServletRequest request, ResourceNotFoundException e) {
+        StandardError err = createStandardError(request, e);
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(err);
+    }
+
     private StandardError createStandardError(HttpServletRequest request, RuntimeException e) {
         StandardError err = new StandardError();
         err.setMessage(e.getMessage());
@@ -34,6 +41,5 @@ public class ControllerExceptionHandler {
         err.setTimestamp(Instant.now());
         err.setPath(request.getRequestURI());
         return err;
-
     }
 }

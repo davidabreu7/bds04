@@ -1,6 +1,6 @@
 package com.devsuperior.bds04.controller;
 
-import com.devsuperior.bds04.dto.CityDTO;
+import com.devsuperior.bds04.dto.CityDto;
 import com.devsuperior.bds04.service.CityService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -19,12 +19,12 @@ public class CityController {
     }
 
     @GetMapping
-    public ResponseEntity<List<CityDTO>> findAll() {
+    public ResponseEntity<List<CityDto>> findAll() {
         return ResponseEntity.ok(service.findAll());
     }
 
     @PostMapping
-    public ResponseEntity<CityDTO> insert(@RequestBody CityDTO dto) {
+    public ResponseEntity<CityDto> insert(@RequestBody CityDto dto) {
         return ResponseEntity.status(HttpStatus.CREATED).body(service.insert(dto));
     }
 

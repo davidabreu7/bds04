@@ -15,7 +15,7 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.ResultActions;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.devsuperior.bds04.dto.CityDTO;
+import com.devsuperior.bds04.dto.CityDto;
 import com.devsuperior.bds04.util.TokenUtil;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
@@ -50,7 +50,7 @@ public class CityControllerIT {
     @Test
     public void insertShouldReturn401WhenNoUserLogged() throws Exception {
 
-        CityDTO dto = new CityDTO(null, "Recife");
+        CityDto dto = new CityDto(null, "Recife");
         String jsonBody = objectMapper.writeValueAsString(dto);
 
         ResultActions result =
@@ -67,7 +67,7 @@ public class CityControllerIT {
 
         String accessToken = tokenUtil.obtainAccessToken(mockMvc, clientUsername, clientPassword);
 
-        CityDTO dto = new CityDTO(null, "Recife");
+        CityDto dto = new CityDto(null, "Recife");
         String jsonBody = objectMapper.writeValueAsString(dto);
 
         ResultActions result =
@@ -85,7 +85,7 @@ public class CityControllerIT {
 
         String accessToken = tokenUtil.obtainAccessToken(mockMvc, adminUsername, adminPassword);
 
-        CityDTO dto = new CityDTO(null, "Recife");
+        CityDto dto = new CityDto(null, "Recife");
         String jsonBody = objectMapper.writeValueAsString(dto);
 
         ResultActions result =
@@ -105,7 +105,7 @@ public class CityControllerIT {
 
         String accessToken = tokenUtil.obtainAccessToken(mockMvc, adminUsername, adminPassword);
 
-        CityDTO dto = new CityDTO(null, "    ");
+        CityDto dto = new CityDto(null, "    ");
         String jsonBody = objectMapper.writeValueAsString(dto);
 
         ResultActions result =
