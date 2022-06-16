@@ -4,7 +4,9 @@ import com.devsuperior.bds04.dto.RoleDto;
 import org.springframework.security.core.GrantedAuthority;
 
 import javax.persistence.*;
+import java.util.HashSet;
 import java.util.Objects;
+import java.util.Set;
 
 @Entity(name = "tb_role")
 public class Role implements GrantedAuthority {
@@ -14,6 +16,9 @@ public class Role implements GrantedAuthority {
     private Integer id;
     @Column(unique=true)
     private String authority;
+
+    @OneToMany(mappedBy = "authority")
+    private Set<User> users = new HashSet<>();
 
     public Role() {
     }
@@ -25,6 +30,10 @@ public class Role implements GrantedAuthority {
 
     public Role(RoleDto roleDto) {
         authority = roleDto.getAuthority();
+    }
+
+    public Set<User> getUsers() {
+        return users;
     }
 
     public Integer getId() {

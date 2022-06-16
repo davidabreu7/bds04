@@ -4,41 +4,34 @@ import com.devsuperior.bds04.entities.Role;
 import com.devsuperior.bds04.entities.User;
 
 import javax.validation.constraints.Email;
+import javax.validation.constraints.NotBlank;
 import java.util.Set;
 
 public class UserDto {
 
     private Long id;
     @Email
+    @NotBlank
     private String email;
     private String password;
-    Set<RoleDto> roles;
+    private RoleDto authority;
 
     public UserDto() {
     }
 
-    public UserDto(Long id, String email, String password, Set<Role> roles){
+    public UserDto(Long id, String email, String password, Role authority){
         this.id = id;
         this.email = email;
         this.password = password;
-        if (roles != null && roles.size() > 0){
-            roles.stream()
-                    .map(RoleDto::new)
-                    .forEach(role -> this.roles.add(role));
-        }
+        this.authority = new RoleDto(authority);
     }
 
     public UserDto(User user){
         this.id = user.getId();
         this.email = user.getEmail();
         this.password = user.getPassword();
-        if (user.getRoles() != null){
-            user.getRoles().stream()
-                    .map(RoleDto::new)
-                    .forEach(role -> roles.add(role));
+        this.authority = new RoleDto(user.getAuthority());
         }
-
-    }
 
     public Long getId() {
         return id;
@@ -64,8 +57,8 @@ public class UserDto {
         this.password = password;
     }
 
-    public Set<RoleDto> getRoles() {
-        return roles;
+    public RoleDto getAuthority() {
+        return authority;
     }
 
 }

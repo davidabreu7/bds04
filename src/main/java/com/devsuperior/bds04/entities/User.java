@@ -1,14 +1,14 @@
 package com.devsuperior.bds04.entities;
 
-import com.devsuperior.bds04.dto.RoleDto;
 import com.devsuperior.bds04.dto.UserDto;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.*;
 import javax.validation.constraints.Email;
-import javax.validation.constraints.NotNull;
-import java.util.*;
+import java.util.Collection;
+import java.util.Objects;
+import java.util.Set;
 
 @Entity(name = "tb_user")
 public class User implements UserDetails {
@@ -21,27 +21,23 @@ public class User implements UserDetails {
     private String email;
     private String password;
 
-    @OneToMany(fetch = FetchType.EAGER)
-    Set<Role> roles = new LinkedHashSet<>();
+    @ManyToOne
+    Role authority;
 
     public User() {
     }
 
-    public User(UserDto user, Set<Role> roles){
+    public User(UserDto user, Role authority){
         this.id = user.getId();
         this.email = user.getEmail();
         this.password = user.getPassword();
-        if (roles != null && roles.size() > 0){
-            roles.addAll(this.roles);
-        }
+        this.authority = authority;
     }
-    public User(Long id, String email, String password, Set<Role> roles) {
+    public User(Long id, String email, String password, Role authority) {
         this.id = id;
         this.email = email;
         this.password = password;
-        if (roles != null && roles.size() > 0){
-            roles.addAll(this.roles);
-        }
+        this.authority = authority;
     }
 
     public Long getId() {
@@ -63,15 +59,15 @@ public class User implements UserDetails {
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return roles;
+        return Set.of(authority);
     }
 
     public String getPassword() {
         return password;
     }
 
-    public Set<Role> getRoles() {
-        return roles;
+    public Role getAuthority() {
+        return authority;
     }
 
     @Override
