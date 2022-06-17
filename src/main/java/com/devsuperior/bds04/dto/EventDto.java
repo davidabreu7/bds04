@@ -1,14 +1,18 @@
 package com.devsuperior.bds04.dto;
 
 import com.devsuperior.bds04.entities.Event;
+import com.devsuperior.bds04.service.validation.EventInsertValid;
 
+import javax.validation.constraints.NotBlank;
 import java.io.Serializable;
 import java.time.LocalDate;
 
+@EventInsertValid
 public class EventDto implements Serializable {
 	private static final long serialVersionUID = 1L;
 	
 	private Long id;
+	@NotBlank
 	private String name;
 	private LocalDate date;
 	private String url;

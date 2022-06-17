@@ -1,6 +1,8 @@
 package com.devsuperior.bds04.dto;
 
 import com.devsuperior.bds04.entities.Role;
+import com.devsuperior.bds04.service.validation.EventInsertValid;
+
 
 public class RoleDto {
 

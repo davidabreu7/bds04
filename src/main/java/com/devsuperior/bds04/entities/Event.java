@@ -1,5 +1,7 @@
 package com.devsuperior.bds04.entities;
 
+import com.devsuperior.bds04.dto.EventDto;
+
 import javax.persistence.*;
 import java.time.LocalDate;
 
@@ -27,6 +29,14 @@ public class Event {
 		this.date = date;
 		this.url = url;
 		this.city = city;
+	}
+
+	public Event(EventDto dto, City city) {
+		this.name = dto.getName();
+		this.date = dto.getDate();
+		this.url = dto.getUrl();
+		this.city = city;
+
 	}
 
 	public Long getId() {

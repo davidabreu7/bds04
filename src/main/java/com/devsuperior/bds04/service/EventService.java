@@ -1,6 +1,7 @@
 package com.devsuperior.bds04.service;
 
 import com.devsuperior.bds04.dto.EventDto;
+import com.devsuperior.bds04.entities.City;
 import com.devsuperior.bds04.entities.Event;
 import com.devsuperior.bds04.exceptions.ResourceNotFoundException;
 import com.devsuperior.bds04.repository.CityRepository;
@@ -45,4 +46,10 @@ public class EventService {
 
     }
 
+    public EventDto insert(EventDto dto) {
+        City cityEvent = cityRepository
+                .findById(dto.getCityId())
+                .orElseThrow(() -> new ResourceNotFoundException("City id: %d not found".formatted(dto.getCityId())));
+        return new EventDto(eventRepository.save(new Event(dto, cityEvent)));
+    }
 }
