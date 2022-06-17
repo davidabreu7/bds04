@@ -5,7 +5,6 @@ import com.devsuperior.bds04.entities.User;
 
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
-import java.util.Set;
 
 public class UserDto {
 
