@@ -1,5 +1,6 @@
 package com.devsuperior.bds04.controller;
 
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -17,7 +18,8 @@ public class LoginController {
     }
 
     @PostMapping
-    public void login(){
+    public ResponseEntity<?> authentication(){
 
+        return ResponseEntity.ok().build();
     }
 }

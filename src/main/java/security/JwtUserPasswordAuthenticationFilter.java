@@ -1,8 +1,7 @@
-package com.devsuperior.bds04.security;
+package security;
 
 import com.devsuperior.bds04.config.JwtConfig;
 import com.devsuperior.bds04.dto.UserAuthenticationDto;
-import com.devsuperior.bds04.dto.UserDto;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import io.jsonwebtoken.Jwts;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -39,7 +38,7 @@ public class JwtUserPasswordAuthenticationFilter extends UsernamePasswordAuthent
     public Authentication attemptAuthentication(HttpServletRequest request, HttpServletResponse response) throws AuthenticationException {
 
         try {
-            UserDto authenticationUser = new ObjectMapper().readValue(request.getInputStream(), UserDto.class);
+            UserAuthenticationDto authenticationUser = new ObjectMapper().readValue(request.getInputStream(), UserAuthenticationDto.class);
 
             Authentication authentication = new UsernamePasswordAuthenticationToken(authenticationUser.getEmail(), authenticationUser.getPassword());
 

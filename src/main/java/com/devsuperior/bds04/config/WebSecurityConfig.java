@@ -1,7 +1,5 @@
 package com.devsuperior.bds04.config;
 
-
-import com.devsuperior.bds04.security.JwtUserPasswordAuthenticationFilter;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.env.Environment;
@@ -14,6 +12,7 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import security.JwtUserPasswordAuthenticationFilter;
 
 import java.util.Arrays;
 
@@ -24,7 +23,6 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     private final JwtConfig jwtConfig;
     private final Environment env;
-
     final BCryptPasswordEncoder passwordEncoder;
 
     private final UserDetailsService userDetailsService;
