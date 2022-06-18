@@ -2,11 +2,13 @@ package com.devsuperior.bds04.entities;
 
 import com.devsuperior.bds04.dto.UserDto;
 import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.*;
 import javax.validation.constraints.Email;
 import java.util.Collection;
+import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
 
@@ -24,6 +26,9 @@ public class User implements UserDetails {
     @ManyToOne
     Role authority;
 
+    @ElementCollection
+    private final Set<GrantedAuthority> authorities = new HashSet<>();
+
     public User() {
     }
 
@@ -40,6 +45,11 @@ public class User implements UserDetails {
         this.authority = authority;
     }
 
+    public void initializeAuthorities() {
+        authorities.stream()
+                .map(role -> new SimpleGrantedAuthority(role.getAuthority()))
+                .forEach(authorities::add);
+    }
     public Long getId() {
         return id;
     }
@@ -59,7 +69,7 @@ public class User implements UserDetails {
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return Set.of(authority);
+        return authorities;
     }
 
     public String getPassword() {

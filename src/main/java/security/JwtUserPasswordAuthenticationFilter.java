@@ -4,12 +4,12 @@ import com.devsuperior.bds04.config.JwtConfig;
 import com.devsuperior.bds04.dto.UserAuthenticationDto;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import io.jsonwebtoken.Jwts;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
-import org.springframework.stereotype.Service;
 
 import javax.crypto.SecretKey;
 import javax.servlet.FilterChain;
@@ -20,17 +20,18 @@ import java.time.LocalDate;
 import java.util.Date;
 
 
-@Service
+
 public class JwtUserPasswordAuthenticationFilter extends UsernamePasswordAuthenticationFilter {
 
     private final JwtConfig jwtConfig;
 
-    private final AuthenticationManager authenticationManager;
+    @Autowired
+    private  AuthenticationManager authenticationManager;
 
 
-    public JwtUserPasswordAuthenticationFilter(AuthenticationManager authenticationManager, JwtConfig jwtConfig) {
+    public JwtUserPasswordAuthenticationFilter(JwtConfig jwtConfig) {
         this.jwtConfig = jwtConfig;
-        this.authenticationManager = authenticationManager;
+
     }
 
 
@@ -67,6 +68,6 @@ public class JwtUserPasswordAuthenticationFilter extends UsernamePasswordAuthent
         response.setCharacterEncoding("UTF-8"); // You want world domination, huh?
         response.getWriter().write(jsonString);
 
-        response.addHeader(jwtConfig.getAuthorizationHeader(), jwtConfig.getAuthorizationHeader() + token);
+        response.addHeader(jwtConfig.getAuthorizationHeader(), jwtConfig.getTokenPrefix() + token);
     }
 }

@@ -27,11 +27,20 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     private final UserDetailsService userDetailsService;
 
+
     public WebSecurityConfig(JwtConfig jwtConfig, BCryptPasswordEncoder passwordEncoder, Environment env, UserDetailsService userDetailsService) {
         this.jwtConfig = jwtConfig;
         this.passwordEncoder = passwordEncoder;
         this.env = env;
         this.userDetailsService = userDetailsService;
+    }
+
+    @Bean
+    public JwtUserPasswordAuthenticationFilter jwtLoginFilter() throws Exception {
+        var filter = new JwtUserPasswordAuthenticationFilter(jwtConfig);
+        filter.setAuthenticationManager(authenticationManagerBean());
+        filter.setFilterProcessesUrl("/oauth/token");
+        return filter;
     }
 
     @Override
@@ -43,8 +52,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     @Bean
-    public AuthenticationManager authenticationManagerBean() throws Exception {
-        return super.authenticationManagerBean();
+    public AuthenticationManager authenticationManager() throws Exception {
+        return super.authenticationManager();
     }
 
      @Override
@@ -58,11 +67,12 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .sessionManagement()
                 .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 .and()
-                .addFilter(new JwtUserPasswordAuthenticationFilter(authenticationManagerBean(), jwtConfig))
+                .addFilter(jwtLoginFilter())
 //                .addFilterAfter(new JwtTokenVerifierFilter(jwtConfig), JwtUserPasswordAuthenticationFilter.class)
                 .authorizeRequests()
                 .antMatchers("/h2-console/**").permitAll()
                 .antMatchers("/actuator/**").permitAll()
+                .antMatchers("/login").permitAll()
                 .antMatchers("/oauth/token").permitAll()
                 .antMatchers(HttpMethod.GET, "/users")
                 .hasRole("ADMIN")
