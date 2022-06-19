@@ -1,5 +1,7 @@
 package com.devsuperior.bds04.config;
 
+import com.devsuperior.bds04.security.JwtTokenVerifierFilter;
+import com.devsuperior.bds04.security.JwtUserPasswordAuthenticationFilter;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.env.Environment;
@@ -12,8 +14,6 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import security.JwtTokenVerifierFilter;
-import security.JwtUserPasswordAuthenticationFilter;
 
 import java.util.Arrays;
 
@@ -21,27 +21,17 @@ import java.util.Arrays;
 @EnableWebSecurity
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
-
     private final JwtConfig jwtConfig;
     private final Environment env;
     final BCryptPasswordEncoder passwordEncoder;
 
     private final UserDetailsService userDetailsService;
 
-
     public WebSecurityConfig(JwtConfig jwtConfig, BCryptPasswordEncoder passwordEncoder, Environment env, UserDetailsService userDetailsService) {
         this.jwtConfig = jwtConfig;
         this.passwordEncoder = passwordEncoder;
         this.env = env;
         this.userDetailsService = userDetailsService;
-    }
-
-    @Bean
-    public JwtUserPasswordAuthenticationFilter jwtLoginFilter() throws Exception {
-        var filter = new JwtUserPasswordAuthenticationFilter(jwtConfig);
-        filter.setAuthenticationManager(authenticationManagerBean());
-        filter.setFilterProcessesUrl("/oauth/token");
-        return filter;
     }
 
     @Override
@@ -55,6 +45,14 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     @Bean
     public AuthenticationManager authenticationManager() throws Exception {
         return super.authenticationManager();
+    }
+
+    @Bean
+    public JwtUserPasswordAuthenticationFilter jwtLoginFilter() throws Exception {
+        var filter = new JwtUserPasswordAuthenticationFilter(jwtConfig);
+        filter.setAuthenticationManager(authenticationManagerBean());
+        filter.setFilterProcessesUrl("/oauth/token");
+        return filter;
     }
 
      @Override

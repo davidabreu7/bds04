@@ -1,4 +1,4 @@
-package security;
+package com.devsuperior.bds04.security;
 
 import com.devsuperior.bds04.config.JwtConfig;
 import com.devsuperior.bds04.dto.UserAuthenticationDto;
