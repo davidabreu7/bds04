@@ -73,9 +73,12 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/actuator/**").permitAll()
                 .antMatchers("/login").permitAll()
                 .antMatchers("/oauth/token").permitAll()
-                .antMatchers(HttpMethod.GET, "/users")
-                .hasRole("ADMIN")
-                .anyRequest()
-                .authenticated();
+                .antMatchers(HttpMethod.GET, "/cities/**").permitAll()
+                .antMatchers(HttpMethod.GET, "/events/**").permitAll()
+                .antMatchers(HttpMethod.POST, "/events/**").authenticated()
+                .antMatchers(HttpMethod.POST, "/events").authenticated()
+                .antMatchers(HttpMethod.POST,"/cities/**").hasRole("ADMIN")
+                .antMatchers(HttpMethod.POST,"/cities").hasRole("ADMIN");
+
     }
 }

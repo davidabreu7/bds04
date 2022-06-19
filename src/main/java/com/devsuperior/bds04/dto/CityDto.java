@@ -9,12 +9,9 @@ public class CityDto implements Serializable {
 	private static final long serialVersionUID = 1L;
 	
 	private Long id;
-	@NotBlank
+	@NotBlank(message = "Campo requerido")
 	private String name;
 	
-	public CityDto() {
-	}
-
 	public CityDto(Long id, String name) {
 		this.id = id;
 		this.name = name;

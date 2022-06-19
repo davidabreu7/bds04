@@ -30,7 +30,7 @@ public class EventInsertValidation implements ConstraintValidator<EventInsertVal
         for (FieldError e : errors) {
             context.disableDefaultConstraintViolation();
             context.buildConstraintViolationWithTemplate(e.getMessage())
-                    .addPropertyNode(e.getError())
+                    .addPropertyNode(e.getFieldName())
                     .addConstraintViolation();
         }
 

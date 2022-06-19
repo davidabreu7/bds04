@@ -13,11 +13,11 @@ public class EventDto implements Serializable {
 	private static final long serialVersionUID = 1L;
 	
 	private Long id;
-	@NotBlank
+	@NotBlank(message = "Campo requerido")
 	private String name;
 	private LocalDate date;
 	private String url;
-	@NotNull
+	@NotNull(message = "Campo requerido")
 	private Long cityId;
 	
 	public EventDto() {

@@ -46,9 +46,7 @@ public class User implements UserDetails {
     }
 
     public void initializeAuthorities() {
-        authorities.stream()
-                .map(role -> new SimpleGrantedAuthority(role.getAuthority()))
-                .forEach(authorities::add);
+       authorities.add(new SimpleGrantedAuthority(authority.getAuthority()));
     }
     public Long getId() {
         return id;

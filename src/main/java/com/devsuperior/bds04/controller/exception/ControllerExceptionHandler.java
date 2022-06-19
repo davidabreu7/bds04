@@ -49,7 +49,7 @@ public class ControllerExceptionHandler {
         err.setPath(request.getRequestURI());
         e.getBindingResult()
                 .getFieldErrors()
-                .forEach(x -> err.getFieldErros()
+                .forEach(x -> err.getErrors()
                         .add(new FieldError(x.getField(), x.getDefaultMessage())));
         return err;
     }
