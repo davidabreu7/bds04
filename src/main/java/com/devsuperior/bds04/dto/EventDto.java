@@ -4,6 +4,7 @@ import com.devsuperior.bds04.entities.Event;
 import com.devsuperior.bds04.service.validation.EventInsertValid;
 
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 import java.time.LocalDate;
 
@@ -16,6 +17,7 @@ public class EventDto implements Serializable {
 	private String name;
 	private LocalDate date;
 	private String url;
+	@NotNull
 	private Long cityId;
 	
 	public EventDto() {
