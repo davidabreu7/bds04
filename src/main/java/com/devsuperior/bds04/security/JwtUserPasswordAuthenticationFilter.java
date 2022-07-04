@@ -25,14 +25,11 @@ import java.util.Date;
 public class JwtUserPasswordAuthenticationFilter extends UsernamePasswordAuthenticationFilter {
 
     private final JwtConfig jwtConfig;
-
     @Autowired
     private  AuthenticationManager authenticationManager;
 
-
     public JwtUserPasswordAuthenticationFilter(JwtConfig jwtConfig) {
         this.jwtConfig = jwtConfig;
-
     }
 
 
